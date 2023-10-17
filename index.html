@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Lexend|Sofia' rel='stylesheet'>
+    <title>Discover your inner dog or cat!</title>
+    <style>
+        body {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgb(166, 37, 80);
+            background-image: url("background.jpeg");
+            background-size: cover;
+            height: 90vh;
+        }
+
+        .container {
+          background: linear-gradient(to bottom, rgba(255, 224, 228, 0.609), rgba(255, 245, 246, 0.609));
+          border-radius: 50px;
+          border: 4px solid rgb(255, 230, 234);
+          padding: 30px;
+      }
+
+    
+        #Next , #Submit ,#Back {
+            margin-top: 100px;
+        }
+
+        .Buttons {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .Button {
+            background-color: #f6cccc;
+            border-radius: 20px;
+            transition-duration: 0.6s;
+            border: none;
+            color: rgb(166, 37, 80);
+            padding: 10px 20px;
+            width: 100px;
+            text-align: center;
+            font-size: 16px;
+            font-family: 'Lexend';
+            margin: 0 50px;
+        }
+
+        .Button:hover {
+          background-color: #e5b7b7;
+          cursor: pointer;
+        }
+
+        #questionspace {
+            font-family: 'Lexend';
+            font-size: 30px;
+            margin-bottom: 100px;
+            margin-top: 50px;
+        }
+
+        #theOptions {
+            text-align: center;
+        }
+
+        label {
+          font-family: 'Lexend';
+          border-radius: 15px;
+          border: 4px solid #a0a67c;
+          font-size: 20px;
+          margin-bottom: 20px;
+          transition-duration: 0.2s;
+          background-color: #f6cccc;
+          color: rgb(216, 33, 94);
+          padding: 10px 20px;
+          width: 125px;
+          text-align: center;
+          display: block;
+  
+        }
+
+        label:hover {
+          color: rgb(166, 37, 80);
+          font-size: 22px;
+          width: 127px;
+          cursor:pointer;
+          border:4px solid #989f73;
+          
+        }
+
+        input[type="radio"]:checked + label {
+          transition-duration: 0.5s;
+          color: rgb(166, 37, 80);
+          background-color: #e5b7b7;
+        }
+
+        input[type='radio'] {
+          display: none;
+        }
+      
+        .option {
+          display: inline-block;
+          text-align: center;
+          width: 200px;
+        }
+
+        .h1 {
+            font-size: 25px;
+            width: 60%;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+<body>
+
+  <div class="h1">
+    <h1 style="font-family: Sofia">♡ Discover your inner dog or cat!</h1>
+</div>
+
+<div class="container">
+<h1 style="font-family: Lexend" id="questionspace"> </h1>
+<div id="theOptions">
+
+  <div class="option">
+    <input type="radio" name="options" id="option1" value="1">
+    <label for="option1" id="optionone"></label>
+</div>
+
+<div class="option">
+    <input type="radio" name="options" id="option2" value="2"> 
+    <label for="option2" id="optiontwo"></label>
+</div>
+
+<div class="option">
+    <input type="radio" name="options" id="option3" value="3"> 
+    <label for="option3" id="optionthree"></label>
+</div>
+
+<div class="option">
+    <input type="radio" name="options" id="option4" value="4">
+    <label for="option4" id="optionfour"></label>
+</div>
+</div>
+<div>
+
+
+<div class="Buttons"> 
+<button id="Next" class="Button" onclick="next()"> Next </button>
+<button id="Submit" class="Button" onclick="finish()"> Finished </button>
+</div>
+
+<script>
+
+    //Putting the variables to 0 at the start
+    //Counter keeps track of what question the quiz is on
+    var counter = 0; 
+    var score = 0; 
+
+    //This gets the elements from the HTML by its id into variables
+    var questionspace = document.getElementById("questionspace");
+    var Question = document.getElementById("question");
+    var optionone = document.getElementById("optionone");
+    var optiontwo = document.getElementById("optiontwo");
+    var optionthree = document.getElementById("optionthree");
+    var optionfour = document.getElementById("optionfour");
+
+    //Storing the quiz questions and options as objects in an array,
+    //the scores are 1, 2, 3, 4 to determine the result.
+    var questionData = [
+      {
+        question: "Pick your favourite pasta",
+        options: ["Spaghetti carbonara", "Pesto pasta", "Lasagna" , "Tomato pasta"],
+      },
+      {
+        question: "Choose a random sweet",
+        options: ["Eclair", "Donut", "Cupcake", "Cheesecake"],
+      },
+      {
+        question: "Ice cream flavour?",
+        options: ["Bubblegum", "Vanilla" , "Chocolate" , "Cookies and cream"],
+      },
+      {
+        question: "Select a bread",
+        options: ["Focaccia", "Sourdough", "Ciabatta", "Banana"],
+      },
+      {
+        question: "Pick something from Disneyland",
+        options: ["Funnel cake", "Churros" , "Mickey beignets", "Quesabirria tacos"],
+      },
+      {
+        question: "Pie flavour?",
+        options: ["Cherry", "Key lime", "Blueberry", "Pecan"],
+      },
+      {
+        question: "Choose a pizza flavour",
+        options: ["Peri Peri", "Margherita", "Spicy veggie", "Cheese"],
+      },
+      {
+        question: "Breakfast time",
+        options: ["Chicken and waffles", "French toast", "Pancakes", "Eggs and bacon"],
+      },
+      {
+        question: "Lunch time",
+        options: ["Mac and cheese", "Sushi", "Taco", "Chicken salad"],
+      },
+      {
+        question: "Finally, dinner time :)",
+        options: ["Butter chicken", "Pad thai", "Burger", "Pasta bake"],
+      },
+    ];
+
+      //This displays the question and options in the inner HTML, getting the array from questionData:
+      //It depends on what question it is on, determined by counter variable.
+      questionspace.innerHTML = questionData[counter]['question'];
+      optionone.innerHTML = questionData[counter]['options'][0];
+      optiontwo.innerHTML = questionData[counter]['options'][1];
+      optionthree.innerHTML = questionData[counter]['options'][2];
+      optionfour.innerHTML = questionData[counter]['options'][3];
+
+     //A function that connects to next button:
+     //It checks if the counter is less than the length of the questionData array (ensures user stays within the array instead of getting undefined).
+     //If so, add one to the counter and display the new question and options.
+     function next() {
+    // Collect all the checked radio buttons that have a name set to "options" and store them in the variable radiobuttons.
+    var radiobuttons = document.querySelectorAll('input[name="options"]:checked');
+
+    //Invalid case - If radiobuttons length is 0, it means none is selected
+    if (radiobuttons.length === 0) {
+        alert("Please select an option!");
+
+    } else if (counter < questionData.length - 1) {
+        //Get the value of the selected option from the radio buttons
+        var value = radiobuttons[0].value;
+
+        //Variable set to 0 which is the selected score from the option
+        var selectedscore = 0;
+
+        //Calculates the score based on the selected option by the user
+        if (value === "1") {
+            selectedscore = 1;
+        } else if (value === "2") {
+            selectedscore = 2;
+        } else if (value === "3") {
+            selectedscore = 3;
+        } else if (value === "4") {
+            selectedscore = 4;
+        }
+
+        //Adds the selected score to the total score
+        score += selectedscore;
+
+        //Runs radiobutton function, getting rid of selection of an option
+        radiobutton(); 
+
+        //It goes to the next question
+        counter++;
+
+        //Runs the update function
+        update();
+    } else {
+        alert("Please click Finished!"); //If user is at end and clicks next instead of finished.
+      }
+    };
+
+
+    //Update function for the next function:
+    //In the question space or option number within the inner HTML, 
+    //it goes in the questionData array and the counter determines what question/options its on.
+    function update() {
+      questionspace.innerHTML = questionData[counter]['question'];
+      optionone.innerHTML = questionData[counter]['options'][0];
+      optiontwo.innerHTML = questionData[counter]['options'][1];
+      optionthree.innerHTML = questionData[counter]['options'][2];
+      optionfour.innerHTML = questionData[counter]['options'][3];
+    };
+
+    //Radiobutton function clears selection of radio button if users clicks it - runs in next():
+    function radiobutton() {
+    //Gets all HTML elements called options and stores in var radiobutton.
+
+  var radiobutton = document.getElementsByName("options");  
+  //For loop that goes through all elements in above var,
+  //i = 0 and loop continues until i is less than no. of elements in radiobutton var.
+
+  for (var i = 0; i < radiobutton.length; i++) {
+
+  //Unchecks the radio button 
+    radiobutton[i].checked = false;
+        }
+  };
+
+    function finish() {
+  // Check if the counter is at the last question
+  if (counter === questionData.length - 1) {
+    endresult(); //If so, then calculate and display the result
+  } else {
+    alert("Please finish the quiz before submitting!"); //If user is not at end and submits
+  }
+};
+
+    function endresult() {
+    //Boundary 
+    if (score >= 0 && score <= 10) {
+        //If score is more than or equal to 0 and less than or equal to 10 = golden retriever
+        window.location.href = "goldenretriever.html";
+    } else if (score >= 11 && score <= 20) {
+        //If score is more than or equal to 21 and less than or equal to 30 = black cat
+        window.location.href = "blackcat.html";
+    } else if (score >= 21 && score <= 30) {
+        //If score is more than or equal to 31 and less than or equal to 40 = black labrador
+        window.location.href = "blacklab.html";
+    } else if (score >= 31 && score <= 40) {
+        //If score is more than or equal to 31 and less than or equal to 40 = orange cat
+        window.location.href = "orangecat.html";
+    }
+};
+
+
+</script>
+
+    
+</body>
+</html>
